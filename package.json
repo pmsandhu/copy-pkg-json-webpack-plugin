@@ -1,0 +1,40 @@
+{
+  "name": "copy-pkg-json-webpack-plugin",
+  "version": "0.0.2",
+  "description": "A webpack plugin to copy package.json file with desired key props into build directory",
+  "main": "lib/index.js",
+  "scripts": {
+    "eslint": "eslint src/ test/*.js --fix",
+    "watch": "babel src -d src --watch",
+    "rmdir": "IF EXIST dist rmdir /S/Q dist",
+    "mkdir": "mkdir dist",
+    "test": "mocha --reporter spec --compilers js:babel-core/register",
+    "prebuild": "npm run rmdir && npm run mkdir",
+    "build": "babel src -d dist --presets=babili --no-babelrc",
+    "postbuild": "for %I in (.npmignore package.json README.md) do copy %I dist"
+  },
+  "keywords": [
+    "webpack",
+    "webpack-plugin",
+    "package.json",
+    "production",
+    "copy",
+    "copy package.json"
+  ],
+  "repository": "",
+  "author": "patrice sandhu",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-preset-env": "^1.1.11",
+    "babili": "^0.0.12",
+    "eslint": "^3.17.0",
+    "eslint-config-es6": "latest",
+    "rimraf": "latest",
+    "eslint-plugin-import": "latest",
+    "expect": "^1.20.2",
+    "mocha": "^3.2.0",
+    "webpack": "^2.2.1"
+  }
+}

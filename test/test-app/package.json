@@ -1,0 +1,35 @@
+{
+  "name": "TESTING-cat-PLUGIN",
+  "version": "5555.5",
+  "author": "MEOW CAT",
+  "license": "cat license",
+  "description": "!!! RUNNING TEST FOR WEBPACK COPY PACKAGE JSON PLUGIN !!!",
+  "main": "index.js",
+  "scripts": {
+    "build": "HELLO @ build",
+    "watch": "HELLO @ watch",
+    "lint": "HELLO @ lint ",
+    "fix": "HELLO @ fix",
+    "test": "HELLO @ test",
+    "webpack": "HELLO @ webpack"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.0",
+    "expect": "^1.20.2",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.6.1",
+    "webpack": "^2.2.1",
+    "colors": "latest"
+  },
+  "nestedKeys": {
+    "nest1": {
+        "notNest1": "pck> nestKeys > nest1 > notNest1 = this string",
+        "nest2": {
+          "notNest2": "pck> nestKeys > nest1 > nest2 > notNest2 = this string",
+          "nest3": {
+              "nest4": "pck> nestKeys > nest1 > nest2 > nest3 > nest4 = this string" }
+      }
+    }
+  },
+  "dependencies": {"react": "latest"}
+}

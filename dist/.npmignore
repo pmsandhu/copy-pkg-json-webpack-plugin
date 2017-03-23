@@ -1,0 +1,12 @@
+.idea
+.vscode
+*.log
+.eslintrc
+.babelrc
+.gitignore
+
+node_modules
+__test__
+__mocks__
+src
+
