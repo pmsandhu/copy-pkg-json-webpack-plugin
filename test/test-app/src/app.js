@@ -1,12 +1,13 @@
-const a = require("./a");
-const b = require("./b");
+const a = require('./a')
+const b = require('./b')
 
-if (process.env.NODE_ENV === "production") {
-  run(a, b);
+if (process.env.NODE_ENV === 'production') {
+  run(a, b)
 } else {
-  run(b,a);
+  run(b, a)
 }
 
-function run (a, b) {
+function run(a, b) {
   return a + b
 }
+

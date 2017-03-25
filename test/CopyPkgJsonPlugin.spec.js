@@ -4,6 +4,7 @@ const rimraf = require('rimraf')
 const { mock, fileExists, getFile } = require('./util')
 const run = require('./test-app/config')
 
+
 const APP_DIR = path.join(__dirname, 'test-app')
 const BUILD_DIR = path.join(APP_DIR, 'build')
 
@@ -11,7 +12,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
   afterEach(() => { rimraf.sync(BUILD_DIR) })
 
   describe('exist in build directory', () => {
-    it('__dirname + BUILD_DIR + package.json = true', done => {
+    it('__dirname + BUILD_DIR + package.json = true', (done) => {
       run({}).then(() => {
         expect(fileExists(BUILD_DIR, 'package.json')).toEqual(true)
         expect(fileExists(BUILD_DIR, 'bundle.js')).toEqual(true)
@@ -20,8 +21,33 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
     })
   })
 
+  describe('throw error when package.json not found', () => {
+    it('should throw an error when package.json is not found', () => {
+      let err
+      try { run({}, 'src/test') } catch (e) { err = e }
+      expect(err instanceof Error).toBe(true)
+      expect(err.message.split('\n')[1]).toEqual(mock.errorPath)
+    })
+
+    it('allow passing  paths directly to the context options', (done) => {
+      run({}, 'test/test-app').then(() => {
+        expect(fileExists(BUILD_DIR, 'package.json')).toEqual(true)
+        expect(fileExists(BUILD_DIR, 'bundle.js')).toEqual(true)
+        done()
+      }).catch(e => done(e))
+    })
+
+    it('still work when context is filename path instead of directory path to package.json', (done) => {
+      run({}, 'test/test-app/package.json').then(() => {
+        expect(fileExists(BUILD_DIR, 'package.json')).toEqual(true)
+        expect(fileExists(BUILD_DIR, 'bundle.js')).toEqual(true)
+        done()
+      }).catch(e => done(e))
+    })
+  })
+
   describe('remove properties given to new CopyPckJsonPlugin({remove: []})', () => {
-    it('package.json should not have devDependencies or scripts props', done => {
+    it('package.json should not have devDependencies or scripts props', (done) => {
       run({ remove: ['devDependencies', 'scripts'] }).then(() => {
         const output = getFile(BUILD_DIR)
         expect(output.hasOwnProperty('devDependencies')).toEqual(false)
@@ -30,7 +56,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
         done()
       }).catch(e => done(e))
 
-      it('remove properties from nested object using dot notation to specify the depth of prop', done => {
+      it('remove properties from nested object using dot notation to specify the depth of prop', (done) => {
         run({ remove: ['scripts', 'nestedKeys.nest1.nest2.notNest2'] }).then(() => {
           const output = getFile(BUILD_DIR)
           expect(output.nestedKeys).toEqual(mock.nestedKeys)
@@ -42,7 +68,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
   })
 
   describe('replace properties given to new CopyPckJsonPlugin({replace: {}})', () => {
-    it('simple key value string pairs', done => {
+    it('simple key value string pairs', (done) => {
       run({ replace: { author: 'Mario Lopez' } }).then(() => {
         const output = getFile(BUILD_DIR)
         expect(output.author).toBe('Mario Lopez')
@@ -50,7 +76,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
       }).catch(e => done(e))
     })
 
-    it('nested objects', done => {
+    it('nested objects', (done) => {
       run({ replace: { scripts: mock.scripts } }).then(() => {
         const shouldMatch = Object.assign(getFile(APP_DIR).scripts, mock.scripts)
         const output = getFile(BUILD_DIR).scripts
@@ -59,7 +85,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
       }).catch(e => done(e))
     })
 
-    it('simple key value pairs and  nested objects should be both work', done => {
+    it('simple key value pairs and  nested objects should be both work', (done) => {
       run({ replace: { author: 'Mario Lopez', scripts: mock.scripts } }).then(() => {
         const scriptsShouldEql = Object.assign(getFile(APP_DIR).scripts, mock.scripts)
         const output = getFile(BUILD_DIR)
@@ -71,7 +97,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
   })
 
   describe('new CopyPckJsonPlugin({ exclude: [], replace: {}}) should...', () => {
-    it('remove both properties and replace properties', done => {
+    it('remove both properties and replace properties', (done) => {
       run({
         remove: ['scripts', 'devDependencies', 'author'],
         replace: { author: 'Mario Lopez', scripts: mock.scripts }
@@ -83,7 +109,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
       }).catch(e => done(e))
     })
 
-    it('remove replace nested and not nested properties', done => {
+    it('remove replace nested and not nested properties', (done) => {
       run({
         remove: ['nestedKeys.nest1.nest2', 'devDependencies', 'license'],
         replace: { dependencies: mock.dependencies, scripts: mock.scripts, version: '0.0.1' }
@@ -103,7 +129,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
   })
 
   describe('new CopyPckJsonPlugin() with no args should...', () => {
-    it('return a clone copy of original package.json', done => {
+    it('return a clone copy of original package.json', (done) => {
       run().then(() => {
         const output = getFile(BUILD_DIR)
         const original = getFile(APP_DIR)
@@ -113,3 +139,4 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
     })
   })
 })
+

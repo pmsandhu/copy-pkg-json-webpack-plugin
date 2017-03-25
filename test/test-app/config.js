@@ -1,13 +1,13 @@
 const path = require('path')
 const webpack = require('webpack')
-
 const { fileExists } = require('../util')
-const CopyPkgJsonPlugin = fileExists('lib')
-  ? require('../../dist/lib')
+
+const CopyPkgJsonPlugin = fileExists('dist')
+  ? require('../../dist')
   : require('../../src')
 
-function run(opts) {
-  const compiler = webpack(getConfig(opts))
+function run(opts, context) {
+  const compiler = webpack(getConfig(opts, context))
   return new Promise((resolve, reject) => {
     compiler.run(function (err, stats) {
       if (err) return reject(err)
@@ -16,7 +16,7 @@ function run(opts) {
   })
 }
 
-function getConfig(opts = {}) {
+function getConfig(opts = {}, context = path.resolve(__dirname)) {
   return {
     entry: path.join(__dirname, 'src/app.js'),
     output: {
@@ -24,7 +24,7 @@ function getConfig(opts = {}) {
       path: path.join(__dirname, 'build')
     },
     plugins: [
-      new CopyPkgJsonPlugin(opts, path.resolve(__dirname))
+      new CopyPkgJsonPlugin(opts, context)
     ]
   }
 }

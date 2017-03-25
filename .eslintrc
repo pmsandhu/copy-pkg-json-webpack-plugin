@@ -32,8 +32,12 @@
     "spaced-comment": 0,
     "no-param-reassign": 0,
     "eqeqeq": 0,
-    "class-methods-use-this": 0,
     "no-mixed-operators": 0,
-    "space-infix-ops": 0
+    "space-infix-ops": 0,
+    "class-methods-use-this": 0,
+    "no-console": 0,
+    "no-underscore-dangle": 0,
+    "import/no-dynamic-require": 0,
+    "no-nested-ternary": 0
   }
 }
