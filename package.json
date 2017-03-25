@@ -2,21 +2,18 @@
   "name": "copy-pkg-json-webpack-plugin",
   "version": "0.0.25",
   "description": "A webpack plugin to copy package.json file with desired key props into build directory",
-  "main": "",
+  "main": "index.js",
   "repository": "",
   "author": "patrice sandhu",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src/ test/CopyPkgJsonPlugin.spec.js --fix",
     "watch": "babel src -d src --watch",
     "test": "mocha --reporter spec --compilers js:babel-core/register",
-    "copy:tmp": "copy /b tmp\\*.js dist\\index.js",
+    "lint": "eslint src/ test/CopyPkgJsonPlugin.spec.js --fix",
     "copy:dot": "for %I in (.npmignore package.json README.md) do copy %I dist",
-    "rm:tmp": "rimraf tmp",
     "prebuild": "npm run lint && rimraf dist && mkdir dist",
     "build": "babel src -d dist --presets=babili",
-    "postbuild": "npm run copy:dot",
-    "hi" : "node test/test-app/config.js"
+    "postbuild": "npm run copy:dot && npm run test"
   },
   "keywords": [
     "webpack",

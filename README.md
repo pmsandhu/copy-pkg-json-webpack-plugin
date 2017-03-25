@@ -1,8 +1,7 @@
 # CopyPackageJsonPlugin
 
-> This is a plugin to copy and edit your package.json file to your webpack distribution/production bundle. This is useful for updating the version number of your package and only including the necessary information in your package.json bundle that consumer of your application need.
- 
- 
+> This is a plugin to copy and edit your package.json file to your webpack distribution/production bundle. This is useful for updating the version number of your package and only including the necessary information in your package.json bundle that consumer of your application/package need.
+
 ## Install
 
 ```sh
@@ -77,6 +76,7 @@ plugins : [
   })
 ] 
 ```
+
 ### Note 
 This plugin assumes that your package.json is in the root directory of the node processes current working directory ie. 
 process.cwd(). If your package.json is located elsewhere, you may optionally pass the absolute path of the directory where your package.json resides, as a second argument to new CopyPkgJsonPlugin constructor. NOTE: that you must pass in a first argument in order to pass in the context; if you wish to simply copy your existing package.json you can pass in an empty object :
@@ -97,7 +97,7 @@ plugins: [
   new CopyPkgJsonPlugin({ remove: ['engines','devDependencies'] }) 
 ]
 ```
-And vice-versa if you wish to r eplace but not remove any items:
+And vice-versa if you wish to replace but not remove any items:
 ```javascript
 plugins: [ 
   new CopyPkgJsonPlugin({ replace: { author: 'Mario Lopez' } }) 
