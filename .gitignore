@@ -1,6 +1,9 @@
+.idea
 .idea/
 .vscode
 node_modules
 *.log
 .DS_Store
+
+dist
 
