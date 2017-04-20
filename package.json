@@ -33,10 +33,10 @@
     "babili": "latest",
     "eslint": "latest",
     "eslint-config-es6": "latest",
-    "rimraf": "latest",
     "eslint-plugin-import": "latest",
     "expect": "latest",
     "mocha": "latest",
+    "rimraf": "latest",
     "webpack": "^2.2.1"
   }
 }

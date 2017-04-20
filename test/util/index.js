@@ -13,8 +13,9 @@ function getFile(dir, file = 'package.json') {
 }
 
 const mock = {
-  errorPath: ' \u001b[33mC:\\Users\\psand\\Desktop\\projects\\github\\' +
-              'copy-pkg-json-webpack-plugin\\src\\test\\package.json \u001b[0m',
+  errorPath: '    ' +
+             '\u001b[33mC:\\Users\\psand\\Desktop\\projects\\github\\' +
+             'copy-pkg-json-webpack-plugin\\src\\test\\package.json\u001b[0m',
   scripts: { build: 'build', test: 'test' },
   dependencies: { react: 'v1', redux: 'latest' },
   nestedKeys: {
@@ -28,8 +29,4 @@ const mock = {
   }
 }
 
-module.exports = {
-  fileExists,
-  getFile,
-  mock
-}
+module.exports = { fileExists, getFile, mock }
