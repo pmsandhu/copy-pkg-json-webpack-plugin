@@ -49,7 +49,7 @@ var path = require('path'),
             try {
               b.inputFileSystem._statSync(g), (c = JSON.parse(JSON.stringify(require(g))))
             } catch (h) {
-              throw new Error(this.notFoundError(g), h)
+              throw new Error(this.notFoundError(g))
             }
             b.plugin('emit', function(h, j) {
               if (
@@ -85,19 +85,26 @@ var path = require('path'),
         {
           key: 'notFoundError',
           value: function notFoundError(b) {
-            var g = '\x1B[0m'
+            var f = '\x1B[36m\x1B[1m',
+              g = '\x1B[0m'
             return (
+              '  ' +
               '\x1B[41m\x1B[37m\x1B[1m' +
-              ' Cannot find the following package.json path -- ' +
+              'Cannot find the following package.json path:' +
               g +
-              '\n    ' +
+              ' ' +
               '\x1B[33m' +
               b +
               g +
-              '\n    If your package.json is not in the root directory of the current node process\n    pass the path to where it is located as the second argument to plugin: \n      eg. ' +
-              '\x1B[36m\x1B[1m' +
-              "CopyPkgJsonPlugin({options}, 'path/main')" +
-              g
+              '\n  If your package.json is not in the root directory of the current node process\n  pass the path to where it is located as the second argument to the plugin:\n    ie. ' +
+              f +
+              'CopyPkgJsonPlugin' +
+              g +
+              '({options}, ' +
+              f +
+              "'path/main'" +
+              g +
+              ')'
             )
           }
         }

@@ -63,7 +63,6 @@ class CopyPkgJsonPlugin {
   notFoundError(root) {
     const BG_RED = '\u001b[41m\x1b[37m\u001b[1m'
     const YELLOW = '\u001b[33m'
-    const WHITE = '\u001b[37m'
     const CYAN = '\u001b[36m\u001b[1m'
     const RESET = '\u001b[0m'
     return `  ${BG_RED}Cannot find the following package.json path:${RESET} ${YELLOW}${root}${RESET}

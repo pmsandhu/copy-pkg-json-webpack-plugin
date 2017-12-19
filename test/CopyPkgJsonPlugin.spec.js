@@ -33,7 +33,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
         err = e
       }
       expect(err instanceof Error).toBe(true)
-      expect(err.message.split('\n')[1]).toEqual(mock.errorPath)
+      expect(err.message.slice(err.message.indexOf(':') + 1, err.message.indexOf('\n'))).toEqual(mock.errorPath)
     })
 
     it('allow passing  paths directly to the context options', done => {
