@@ -7,6 +7,7 @@ class CopyPkgJsonPlugin {
     this.context = context
     this.pkgJsonRegExp = /\/?package.json$/
   }
+
   apply(compiler) {
     let pkgJson
     const { options, context } = this
@@ -26,7 +27,7 @@ class CopyPkgJsonPlugin {
 
     compiler.plugin('emit', (compilation, callback) => {
       if (options.hasOwnProperty('remove')) {
-        options.remove.forEach((val) => {
+        options.remove.forEach(val => {
           if (/\./.test(val)) {
             const keys = val.split('.')
             const len = keys.length - 1

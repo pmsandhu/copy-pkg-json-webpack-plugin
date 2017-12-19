@@ -5,7 +5,9 @@ function fileExists(dir, file = '') {
   try {
     fs.statSync(path.join(dir, file))
     return true
-  } catch (e) { return false }
+  } catch (e) {
+    return false
+  }
 }
 
 function getFile(dir, file = 'package.json') {
@@ -13,9 +15,10 @@ function getFile(dir, file = 'package.json') {
 }
 
 const mock = {
-  errorPath: '    ' +
-             '\u001b[33mC:\\Users\\psand\\Desktop\\projects\\github\\' +
-             'copy-pkg-json-webpack-plugin\\src\\test\\package.json\u001b[0m',
+  errorPath:
+    '    ' +
+    '\u001b[33mC:\\Users\\psand\\Desktop\\projects\\github\\' +
+    'copy-pkg-json-webpack-plugin\\src\\test\\package.json\u001b[0m',
   scripts: { build: 'build', test: 'test' },
   dependencies: { react: 'v1', redux: 'latest' },
   nestedKeys: {

@@ -23,13 +23,14 @@
   },
   "nestedKeys": {
     "nest1": {
-        "notNest1": "pck> nestKeys > nest1 > notNest1 = this string",
-        "nest2": {
-          "notNest2": "pck> nestKeys > nest1 > nest2 > notNest2 = this string",
-          "nest3": {
-              "nest4": "pck> nestKeys > nest1 > nest2 > nest3 > nest4 = this string" }
+      "notNest1": "pck> nestKeys > nest1 > notNest1 = this string",
+      "nest2": {
+        "notNest2": "pck> nestKeys > nest1 > nest2 > notNest2 = this string",
+        "nest3": {
+          "nest4": "pck> nestKeys > nest1 > nest2 > nest3 > nest4 = this string"
+        }
       }
     }
   },
-  "dependencies": {"react": "latest"}
+  "dependencies": { "react": "latest" }
 }

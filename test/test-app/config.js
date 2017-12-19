@@ -2,14 +2,12 @@ const path = require('path')
 const webpack = require('webpack')
 const { fileExists } = require('../util')
 
-const CopyPkgJsonPlugin = fileExists('dist')
-  ? require('../../dist')
-  : require('../../src')
+const CopyPkgJsonPlugin = fileExists('dist') ? require('../../dist') : require('../../src')
 
 function run(opts, context) {
   const compiler = webpack(getConfig(opts, context))
   return new Promise((resolve, reject) => {
-    compiler.run(function (err, stats) {
+    compiler.run(function(err, stats) {
       if (err) return reject(err)
       resolve(stats)
     })
@@ -23,9 +21,7 @@ function getConfig(opts = {}, context = path.resolve(__dirname)) {
       filename: 'bundle.js',
       path: path.join(__dirname, 'build')
     },
-    plugins: [
-      new CopyPkgJsonPlugin(opts, context)
-    ]
+    plugins: [new CopyPkgJsonPlugin(opts, context)]
   }
 }
 

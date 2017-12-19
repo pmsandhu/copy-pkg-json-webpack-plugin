@@ -10,4 +10,3 @@ if (process.env.NODE_ENV === 'production') {
 function run(a, b) {
   return a + b
 }
-
