@@ -22,7 +22,7 @@ class CopyPkgJsonPlugin {
       compiler.inputFileSystem._statSync(root)
       pkgJson = JSON.parse(JSON.stringify(require(root)))
     } catch (e) {
-      throw new Error(this.notFoundError(root), e)
+      throw new Error(this.notFoundError(root))
     }
 
     compiler.plugin('emit', (compilation, callback) => {
@@ -32,7 +32,6 @@ class CopyPkgJsonPlugin {
             const keys = val.split('.')
             const len = keys.length - 1
             let ref
-
             keys.forEach((val, i) => {
               if (i === 0) ref = pkgJson[val]
               else if (i === len) delete ref[val]
@@ -46,13 +45,9 @@ class CopyPkgJsonPlugin {
 
       if (options.hasOwnProperty('replace')) {
         for (const prop in options.replace) {
-          if (typeof options.replace[prop] === 'object' && pkgJson.hasOwnProperty(prop)) {
-            for (const i in options.replace[prop]) {
-              pkgJson[prop][i] = options.replace[prop][i]
-            }
-          } else {
-            pkgJson[prop] = options.replace[prop]
-          }
+          if (typeof options.replace[prop] === 'object' && pkgJson.hasOwnProperty(prop))
+            for (const i in options.replace[prop]) pkgJson[prop][i] = options.replace[prop][i]
+          else pkgJson[prop] = options.replace[prop]
         }
       }
 
@@ -68,13 +63,13 @@ class CopyPkgJsonPlugin {
   notFoundError(root) {
     const BG_RED = '\u001b[41m\x1b[37m\u001b[1m'
     const YELLOW = '\u001b[33m'
+    const WHITE = '\u001b[37m'
     const CYAN = '\u001b[36m\u001b[1m'
     const RESET = '\u001b[0m'
-    return `${BG_RED} Cannot find the following package.json path -- ${RESET}
-    ${YELLOW}${root}${RESET}
-    If your package.json is not in the root directory of the current node process
-    pass the path to where it is located as the second argument to plugin: 
-      eg. ${CYAN}CopyPkgJsonPlugin({options}, 'path/main')${RESET}`
+    return `  ${BG_RED}Cannot find the following package.json path:${RESET} ${YELLOW}${root}${RESET}
+  If your package.json is not in the root directory of the current node process
+  pass the path to where it is located as the second argument to the plugin:
+    ie. ${CYAN}CopyPkgJsonPlugin${RESET}({options}, ${CYAN}'path/main'${RESET})`
   }
 }
 
