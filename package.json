@@ -1,6 +1,6 @@
 {
   "name": "copy-pkg-json-webpack-plugin",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "A webpack plugin to copy package.json file with desired key props into build directory",
   "main": "index.js",
   "repository": "https://github.com/pmsandhu/copy-pkg-json-webpack-plugin.git",
@@ -15,7 +15,14 @@
     "build": "babel src -d dist --presets=babili",
     "postbuild": "npm run copy:dot && npm run test"
   },
-  "keywords": ["webpack", "webpack-plugin", "package.json", "production", "copy", "copy package.json"],
+  "keywords": [
+    "webpack",
+    "webpack-plugin",
+    "package.json",
+    "production",
+    "copy",
+    "copy package.json"
+  ],
   "dependencies": {},
   "peerDependencies": {
     "webpack": "^2.2.1"
