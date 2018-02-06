@@ -22,10 +22,17 @@ class CopyPkgJsonPlugin {
       compiler.inputFileSystem._statSync(root)
       pkgJson = JSON.parse(JSON.stringify(require(root)))
     } catch (e) {
-      throw new Error(this.notFoundError(root))
+      if (options.hasOwnProperty('new')) pkgJson = {}
+      else throw new Error(this.notFoundError(root))
     }
 
     compiler.plugin('emit', (compilation, callback) => {
+      if (options.hasOwnProperty('new')) {
+        for (const prop in options.new) {
+          pkgJson[prop] = options.new[prop]
+        }
+      }
+
       if (options.hasOwnProperty('remove')) {
         options.remove.forEach(val => {
           if (/\./.test(val)) {

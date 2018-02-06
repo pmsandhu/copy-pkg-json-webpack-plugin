@@ -36,7 +36,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
       expect(err.message.slice(err.message.indexOf(':') + 1, err.message.indexOf('\n'))).toEqual(mock.errorPath)
     })
 
-    it('allow passing  paths directly to the context options', done => {
+    it('allow passing paths directly to the context options', done => {
       run({}, 'test/test-app')
         .then(() => {
           expect(fileExists(BUILD_DIR, 'package.json')).toEqual(true)
@@ -57,6 +57,40 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
     })
   })
 
+  describe('it should create a new package json', () => {
+    it('if passed in object has key of new should create new package.json', done => {
+      run({ new: {
+        name: 'brand-new-pkg-json',
+        version: '1.0',
+        description: 'testing creating brand new package json',
+        main: 'index.js',
+        license: 'MIT',
+        dependencies: { react: 'latest' },
+        devDependencies: { babel: 'latest' }
+      } })
+      .then(() => {
+        const output = getFile(BUILD_DIR)
+        expect(output.name).toEqual('brand-new-pkg-json')
+        expect(output.version).toEqual('1.0')
+        expect(output.license).toEqual('MIT')
+        expect(typeof output.dependencies).toEqual('object')
+        expect(output.devDependencies.hasOwnProperty('babel')).toEqual(true)
+        done()
+      })
+      .catch(e => done(e))
+
+      it('remove properties from nested object using dot notation to specify the depth of prop', done => {
+        run({ remove: ['scripts', 'nestedKeys.nest1.nest2.notNest2'] })
+        .then(() => {
+          const output = getFile(BUILD_DIR)
+          expect(output.nestedKeys).toEqual(mock.nestedKeys)
+          expect(output.scripts).toBe(undefined)
+          done()
+        })
+        .catch(e => done(e))
+      })
+    })
+  })
   describe('remove properties given to new CopyPckJsonPlugin({remove: []})', () => {
     it('package.json should not have devDependencies or scripts props', done => {
       run({ remove: ['devDependencies', 'scripts'] })

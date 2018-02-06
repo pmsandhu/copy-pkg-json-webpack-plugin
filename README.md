@@ -12,7 +12,7 @@ $ npm install copy-pkg-json-webpack-plugin --save-dev
 
 ```javascript
 // webpack.config.js
-const CopyPkgJsonPlugin = require("copy-pkg-json-webpack-plugin");
+const CopyPkgJsonPlugin = require("copy-pkg-json-webpack-plugin")
 module.exports = {
   entry: '//...',
   output: '//...',
@@ -24,15 +24,62 @@ module.exports = {
   ]
 }
 ```
+```javascript
+// webpack.config.js
+const CopyPkgJsonPlugin = require("copy-pkg-json-webpack-plugin")
+const pkg = require('./package.json')
+module.exports = {
+  entry: '//...',
+  output: '//...',
+  plugins: [
+    new CopyPkgJsonPlugin({      
+      new: {
+        name: pkg.name,
+        version: '1.2.0',
+        description: pkg.dependencies,
+        repository: pkg.repository,
+        peerDependencies: {
+          react: 'latest',
+          'react-dom': 'latest'
+        },
+        devDependencies: {
+          colors: 'latest'
+        } 
+      }
+    })
+  ]
+}
+```
+
 
 ## Options
-Options are passed as arguments to the `new CopyPkgJsonPlugin({ options })` constructor and must be an object containing either a **remove** key with an an array containing properties you want to remove as strings and/or a **replace** key with an object property containing the key/value pairs you wish to replace from your original package.json with. You may optionally pass in the absolute path string to the ***directory*** containing your package.json file. The plugin defaults to process.cwd() path. See the NOTE section below for more information on specifying the package.json directory path.
+Options are passed as arguments to the `new CopyPkgJsonPlugin({ options })` constructor and must be an object containing either a **new** key with an object containing the key/value pairs you wish to populate your new package.json with, a **remove** key with an an array containing properties you want to remove from your existing package.json as strings and/or a **replace** key with an object containing the key/value pairs you wish to replace from your original package.json with. You may optionally pass in the absolute path string to the ***directory*** containing your package.json file. The plugin defaults to process.cwd() path. See the NOTE section below for more information on specifying the package.json directory path.
 
 ```javascript
 new CopyPkgJsonPlugin(
+  { new: {/*...*/} },
+  /* OR */
   {  remove: [/*...*/], replace: {/*...*/} }, 
   /* 'OPTIONAL/PATH/TO/pckJSON/DIRECTORY' */
  )
+```
+
+### New
+The new key expects an object with the standard package.json fields that you wish to be made available in your final bundle's package.json
+```javascript
+plugins : [
+  new CopyPackageJsonPlugin({
+    new: {
+      name: 'my-package',
+      version: '3.0.1',
+      description: 'my package to publish to npm',
+      author: 'Mario Lopez',
+      license: 'MIT',
+      private: false,
+      peerDependencies: { d3: 'latest'}
+    }
+  })
+] 
 ```
 
 ### Remove
@@ -45,7 +92,7 @@ plugins : [
 ] 
 ```
 ### Replace
-The replace key expects an object with property names from your original package.json file that you wish to replace with different properties:.
+The replace key expects an object with property names from your original package.json file that you wish to replace with different properties
 ```javascript
 plugins : [
   new CopyPackageJsonPlugin({
@@ -86,20 +133,35 @@ process.cwd(). If your package.json is located elsewhere, you may optionally pas
 plugins: [ 
   new CopyPkgJsonPlugin({}, 'src/app/hello') 
 ]
+
 ```
-If you wish to simply copy package.json to the dist file without any modifications and your package.json is located in the node processes current working directory ie process.cwd(), simply call the constructor without arguments and your package.json is located at the root : 
+If you wish to create a brand new package.json to the dist file with specific values just pass the new key with an object containing the values you would like to be in your package.json: 
+```javascript
+plugins: [
+  new CopyPkgJsonPlugin({ new: {
+    name: 'state-manager-lib',
+    description: 'state management library',
+    main: 'index.js',
+    version: '2.0',
+    license: 'MIT',
+    dependencies: { lodash: 'latest', redux: 'latest' },
+    devDependencies: { 'chalk': 'latest', 'state-invariant': 'latest' }
+  }}) 
+]
+```  
+If you wish to simply copy package.json your existing package.json to the dist file without any modifications and your package.json is located in the node processes current working directory ie process.cwd(), simply call the constructor without arguments and your package.json is located at the root : 
 ```javascript
 plugins: [
   new CopyPkgJsonPlugin() 
 ]
 ```
-If you which to remove an item but not replace any just pass in this key:
+If you which to remove an item from your existing package.json but not replace any just pass in this key:
 ```javascript
 plugins: [ 
   new CopyPkgJsonPlugin({ remove: ['engines','devDependencies'] }) 
 ]
 ```
-And vice-versa if you wish to replace but not remove any items:
+And vice-versa if you wish to replace in an existing package.json but not remove any items:
 ```javascript
 plugins: [ 
   new CopyPkgJsonPlugin({ replace: { author: 'Mario Lopez' } }) 
