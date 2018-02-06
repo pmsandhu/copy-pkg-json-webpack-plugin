@@ -135,7 +135,7 @@ plugins: [
 ]
 
 ```
-If you wish to create a brand new package.json to the dist file with specific values just pass the new key with an object containing the values you would like to be in your package.json: 
+If you wish to create a brand new package.json to be copied to the final dist bundle folder, pass an object with the key `new` which contains the key value pairs that you would like to be in your package.json: 
 ```javascript
 plugins: [
   new CopyPkgJsonPlugin({ new: {
@@ -149,7 +149,7 @@ plugins: [
   }}) 
 ]
 ```  
-If you wish to simply copy package.json your existing package.json to the dist file without any modifications and your package.json is located in the node processes current working directory ie process.cwd(), simply call the constructor without arguments and your package.json is located at the root : 
+If you wish to simply copy your existing package.json your to the final dist bundle folder without any modifications and your package.json is located in the node processes current working directory ie process.cwd(), simply call the constructor without arguments and your package.json is located at the root : 
 ```javascript
 plugins: [
   new CopyPkgJsonPlugin() 
