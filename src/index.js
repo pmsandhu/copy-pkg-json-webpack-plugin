@@ -28,6 +28,7 @@ class CopyPkgJsonPlugin {
 
     compiler.plugin('emit', (compilation, callback) => {
       if (options.hasOwnProperty('new')) {
+        pkgJson = {}
         for (const prop in options.new) {
           pkgJson[prop] = options.new[prop]
         }
