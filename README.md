@@ -36,7 +36,7 @@ module.exports = {
       new: {
         name: pkg.name,
         version: '1.2.0',
-        description: pkg.dependencies,
+        description: pkg.description,
         repository: pkg.repository,
         peerDependencies: {
           react: 'latest',
