@@ -5,7 +5,7 @@
 .babelrc
 .gitignore
 
-__test__
+test
 __mocks__
 src
 
