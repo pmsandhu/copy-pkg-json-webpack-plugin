@@ -53,7 +53,7 @@ module.exports = {
 
 
 ## Options
-Options are passed as arguments to the `new CopyPkgJsonPlugin({ options })` constructor and must be an object containing either a **new** key with an object containing the key/value pairs you wish to populate your new package.json with, a **remove** key with an an array containing properties you want to remove from your existing package.json as strings and/or a **replace** key with an object containing the key/value pairs you wish to replace from your original package.json with. You may optionally pass in the absolute path string to the ***directory*** containing your package.json file. The plugin defaults to process.cwd() path. See the NOTE section below for more information on specifying the package.json directory path.
+Options are passed as arguments to the `new CopyPkgJsonPlugin({ options })` constructor and must be an object containing either a **new** key with an object containing the key/value pairs you wish to populate your new package.json with, a **remove** key with an array containing properties you want to remove from your existing package.json as strings and/or a **replace** key with an object containing the key/value pairs you wish to replace from your original package.json with. You may optionally pass in the absolute path string to the ***directory*** containing your package.json file. The plugin defaults to process.cwd() path. See the NOTE section below for more information on specifying the package.json directory path.
 
 ```javascript
 new CopyPkgJsonPlugin(
