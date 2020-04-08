@@ -8,7 +8,7 @@
   "license": "MIT",
   "scripts": {
     "watch": "babel src -d src --watch",
-    "test": "mocha --reporter spec --compilers js:babel-core/register",
+    "test": "mocha --reporter spec --require babel-core/register",
     "lint": "eslint src/ test/CopyPkgJsonPlugin.spec.js --fix",
     "prebuild": "npm run lint && rimraf dist && mkdir dist",
     "build": "babel src -d dist --presets=babili",

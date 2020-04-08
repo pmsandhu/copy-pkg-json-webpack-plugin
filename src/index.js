@@ -26,7 +26,7 @@ class CopyPkgJsonPlugin {
       else throw new Error(this.notFoundError(root))
     }
 
-    compiler.plugin('emit', (compilation, callback) => {
+    const emit = (compilation, callback) => {
       if (options.hasOwnProperty('new')) {
         pkgJson = {}
         for (const prop in options.new) {
@@ -65,7 +65,15 @@ class CopyPkgJsonPlugin {
       }
 
       callback()
-    })
+    }
+
+    if (compiler.hooks) {
+      const plugin = { name: 'CopyPkgJsonPlugin' }
+
+      compiler.hooks.emit.tapAsync(plugin, emit)
+    } else {
+      compiler.plugin('emit', emit)
+    }
   }
 
   notFoundError(root) {
