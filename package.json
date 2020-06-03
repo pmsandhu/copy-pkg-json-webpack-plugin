@@ -8,10 +8,10 @@
   "license": "MIT",
   "scripts": {
     "watch": "babel src -d src --watch",
-    "test": "mocha --reporter spec --require babel-core/register",
+    "test": "mocha --reporter spec",
     "lint": "eslint src/ test/CopyPkgJsonPlugin.spec.js --fix",
     "prebuild": "npm run lint && rimraf dist && mkdir dist",
-    "build": "babel src -d dist --presets=babili",
+    "build": "babel src --out-file dist/index.js --presets=minify",
     "postbuild": "npm run test"
   },
   "keywords": [
@@ -24,18 +24,19 @@
   ],
   "dependencies": {},
   "peerDependencies": {
-    "webpack": "^2.2.1"
+    "webpack": "> 2.x.x"
   },
   "devDependencies": {
-    "babel-core": "latest",
-    "babel-preset-env": "latest",
-    "babili": "latest",
-    "eslint": "latest",
-    "eslint-config-es6": "latest",
-    "eslint-plugin-import": "latest",
-    "expect": "latest",
-    "mocha": "latest",
-    "rimraf": "latest",
-    "webpack": "^2.2.1"
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-minify": "^0.5.1",
+    "eslint-config-es6": "^1.10.3",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint": "^7.1.0",
+    "expect": "^26.0.1",
+    "mocha": "^7.2.0",
+    "rimraf": "^3.0.2",
+    "webpack": "^4.43.0"
   }
 }

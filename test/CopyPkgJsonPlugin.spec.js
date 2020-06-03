@@ -91,6 +91,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
       })
     })
   })
+  
   describe('remove properties given to new CopyPckJsonPlugin({remove: []})', () => {
     it('package.json should not have devDependencies or scripts props', done => {
       run({ remove: ['devDependencies', 'scripts'] })

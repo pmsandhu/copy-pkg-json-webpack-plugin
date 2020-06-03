@@ -1,5 +1,10 @@
 const path = require('path')
 
+const BG_RED = '\u001b[41m\x1b[37m\u001b[1m'
+const YELLOW = '\u001b[33m'
+const CYAN = '\u001b[36m\u001b[1m'
+const RESET = '\u001b[0m'
+
 class CopyPkgJsonPlugin {
   constructor(options, context = null) {
     if (typeof options !== 'object' || Array.isArray(options)) options = {}
@@ -77,10 +82,6 @@ class CopyPkgJsonPlugin {
   }
 
   notFoundError(root) {
-    const BG_RED = '\u001b[41m\x1b[37m\u001b[1m'
-    const YELLOW = '\u001b[33m'
-    const CYAN = '\u001b[36m\u001b[1m'
-    const RESET = '\u001b[0m'
     return `  ${BG_RED}Cannot find the following package.json path:${RESET} ${YELLOW}${root}${RESET}
   If your package.json is not in the root directory of the current node process
   pass the path to where it is located as the second argument to the plugin:
@@ -89,3 +90,4 @@ class CopyPkgJsonPlugin {
 }
 
 module.exports = CopyPkgJsonPlugin
+
