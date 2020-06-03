@@ -33,7 +33,7 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
         err = e
       }
       expect(err instanceof Error).toBe(true)
-      expect(err.message.slice(err.message.indexOf(':') + 1, err.message.indexOf('\n'))).toEqual(mock.errorPath)
+      expect(err.message.slice(err.message.indexOf(':') + 1, err.message.indexOf('\n'))).toEqual(expect.stringMatching(/copy-pkg-json-webpack-plugin[\\/]src[\\/]test[\\/]package.json/))
     })
 
     it('allow passing paths directly to the context options', done => {
@@ -68,26 +68,26 @@ describe('when using new CopyPckJsonPlugin({option}) -> your build/package.json 
         dependencies: { react: 'latest' },
         devDependencies: { babel: 'latest' }
       } })
-      .then(() => {
-        const output = getFile(BUILD_DIR)
-        expect(output.name).toEqual('brand-new-pkg-json')
-        expect(output.version).toEqual('1.0')
-        expect(output.license).toEqual('MIT')
-        expect(typeof output.dependencies).toEqual('object')
-        expect(output.devDependencies.hasOwnProperty('babel')).toEqual(true)
-        done()
-      })
-      .catch(e => done(e))
-
-      it('remove properties from nested object using dot notation to specify the depth of prop', done => {
-        run({ remove: ['scripts', 'nestedKeys.nest1.nest2.notNest2'] })
         .then(() => {
           const output = getFile(BUILD_DIR)
-          expect(output.nestedKeys).toEqual(mock.nestedKeys)
-          expect(output.scripts).toBe(undefined)
+          expect(output.name).toEqual('brand-new-pkg-json')
+          expect(output.version).toEqual('1.0')
+          expect(output.license).toEqual('MIT')
+          expect(typeof output.dependencies).toEqual('object')
+          expect(output.devDependencies.hasOwnProperty('babel')).toEqual(true)
           done()
         })
         .catch(e => done(e))
+
+      it('remove properties from nested object using dot notation to specify the depth of prop', done => {
+        run({ remove: ['scripts', 'nestedKeys.nest1.nest2.notNest2'] })
+          .then(() => {
+            const output = getFile(BUILD_DIR)
+            expect(output.nestedKeys).toEqual(mock.nestedKeys)
+            expect(output.scripts).toBe(undefined)
+            done()
+          })
+          .catch(e => done(e))
       })
     })
   })
