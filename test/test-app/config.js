@@ -7,7 +7,7 @@ const CopyPkgJsonPlugin = fileExists('dist') ? require('../../dist') : require('
 function run(opts, context) {
   const compiler = webpack(getConfig(opts, context))
   return new Promise((resolve, reject) => {
-    compiler.run(function(err, stats) {
+    compiler.run((err, stats) => {
       if (err) return reject(err)
       resolve(stats)
     })
