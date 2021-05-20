@@ -1,6 +1,6 @@
 {
   "name": "copy-pkg-json-webpack-plugin",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "A webpack plugin to copy package.json file with desired key props into build directory",
   "main": "dist/index.js",
   "repository": "https://github.com/pmsandhu/copy-pkg-json-webpack-plugin.git",
