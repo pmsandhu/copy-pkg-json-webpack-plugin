@@ -26,14 +26,14 @@
     "webpack": "<=5.x.x"
   },
   "devDependencies": {
-    "@babel/cli": "^7.14.3",
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
-    "eslint": "^7.26.0",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "eslint": "^8.2.0",
     "eslint-config-es6": "^1.10.3",
-    "eslint-plugin-import": "^2.23.2",
-    "expect": "^26.6.2",
-    "mocha": "^8.4.0",
+    "eslint-plugin-import": "^2.25.3",
+    "expect": "^27.3.1",
+    "mocha": "^9.1.3",
     "rimraf": "^3.0.2",
     "webpack": "5.37.1"
   }
