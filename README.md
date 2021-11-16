@@ -1,6 +1,6 @@
 # CopyPackageJsonPlugin
 
-> This is a plugin to copy and edit your package.json file to your webpack distribution/production bundle. This is useful for updating the version number of your package and only including the necessary information in your package.json bundle that consumer of your application/package need.
+> This is a plugin to copy and edit your package.json file to your webpack distribution/production bundle. This is useful for updating the version number of your package and only including the necessary dependencies and information in your package.json bundle that consumers of your application/package need.
 
 ## Install
 
